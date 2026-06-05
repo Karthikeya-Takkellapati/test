@@ -4,14 +4,14 @@ from pricing import PRICING
 
 DEFAULT_MODEL = "gpt-4o-mini"
 
-def estimate_cost(tokens, model):
-    price_per_1k = PRICING[model]["input"]
+def estimate_cost(tokens, model, mode="input"):
+    price_per_1k = PRICING[model][mode]
     return (tokens / 1000) * price_per_1k
 
 def choose_model():
     models = list(PRICING.keys())
     
-    print("Available Models:")
+    print(" Available Models:")
     for i, model in enumerate(models, 1):
         print(f"{i}. {model}")
     
@@ -41,14 +41,18 @@ def main():
     # 🔹 Token count
     tokens = count_tokens(text, model)
 
-    # 🔹 Only input cost
-    cost = estimate_cost(tokens, model)
+    # 🔹 Cost calculation
+    input_cost = estimate_cost(tokens, model, "input")
+    output_cost = estimate_cost(tokens, model, "output")
+    total_cost = input_cost + output_cost
 
     # 🔹 Output
-    print("Results:")
+    print("\n📊 Results:")
     print(f"Model: {model}")
     print(f"Tokens: {tokens}")
-    print(f"Estimated Input Cost: ${cost:.6f}")
+    print(f"Input Cost: ${input_cost:.6f}")
+    print(f"Output Cost: ${output_cost:.6f}")
+    print(f"Total Cost: ${total_cost:.6f}")
 
 if __name__ == "__main__":
     main()
