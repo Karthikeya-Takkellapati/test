@@ -1,0 +1,11 @@
+PRICING = {
+    "gpt-4o": {
+        "input": 0.0025,
+        "output": 0.01
+    },
+    "gpt-4o-mini": {
+        "input": 0.00015,
+        "output": 0.0006
+    }
+    
+}
